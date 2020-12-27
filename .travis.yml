@@ -1,0 +1,17 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t rodrigoillera/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  #  - docker run rodrigoillera/docker-react npm run test -- --coverage
+  - docker run -e CI=true rodrigoillera/react-test npm run test
+
+after_success:
+  - docker build -t rodrigoillera/multi-client -f ./client
+  - docker build -t rodrigoillera/multi-nginx -f ./nginx
+  - docker build -t rodrigoillera/multi-server -f ./server
+  - docker build -t rodrigoillera/multi-worker -f ./worker
