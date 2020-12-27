@@ -11,10 +11,10 @@ script:
   - docker run -e CI=true rodrigoillera/react-test npm run test
 
 after_success:
-  - docker build -t rodrigoillera/multi-client -f ./client
-  - docker build -t rodrigoillera/multi-nginx -f ./nginx
-  - docker build -t rodrigoillera/multi-server -f ./server
-  - docker build -t rodrigoillera/multi-worker -f ./worker
+  - docker build -t rodrigoillera/multi-client ./client
+  - docker build -t rodrigoillera/multi-nginx ./nginx
+  - docker build -t rodrigoillera/multi-server ./server
+  - docker build -t rodrigoillera/multi-worker ./worker
   # Log into the docker CLI to connect to Docker hub
   - echo "$DOCKER_PASSWORD"| docker login -u "$DOCKER_ID" --password-stdin
   # Take this images and push them to Docker hub
